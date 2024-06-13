@@ -1,0 +1,45 @@
+<%= form_with(model: producto) do |form| %>
+  <% if producto.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(producto.errors.count, "error") %> prohibited this producto from being saved:</h2>
+
+      <ul>
+        <% producto.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="product-module">
+  <div>
+    <%= form.label :nombre, style: "display: block" %>
+    <%= form.text_field :nombre %>
+  </div>
+
+  <div>
+    <%= form.label :descripcion, style: "display: block" %>
+    <%= form.text_area :descripcion %>
+  </div>
+
+  <div>
+    <%= form.label :cantidad, style: "display: block" %>
+    <%= form.number_field :cantidad %>
+  </div>
+
+  <div>
+    <%= form.label :precio, style: "display: block" %>
+    <%= form.text_field :precio %>
+  </div>
+   <div>
+      <%= form.label :low_stock_threshold, "Umbral de Stock Bajo" %>
+      <%= form.number_field :low_stock_threshold %>
+    </div>
+   <div>
+      <%= form.label :sku, "SKU" %>
+      <%= form.text_field :sku %>
+   </div>
+  <div>
+    <%= form.submit "Ingresar Producto" , class: "btn btn_primary"%>
+  </div>
+<% end %>
