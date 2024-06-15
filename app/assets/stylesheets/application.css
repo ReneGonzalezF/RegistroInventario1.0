@@ -111,4 +111,7 @@
     background-color: #d4edda;
     color: #155724;
   }
-  
+  /* application.css (o application.scss) */
+.button-separator {
+  margin-bottom: 10px; /* Ajusta el valor según el espacio deseado */
+}

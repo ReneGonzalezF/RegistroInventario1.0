@@ -1,5 +1,5 @@
 class ProductosController < ApplicationController
-  before_action :set_producto, only: %i[ show edit update destroy ]
+  before_action :set_producto, only: %i[ show edit update destroy eliminar_unidad ]
 
   # GET /productos or /productos.json
   def index
@@ -17,6 +17,7 @@ class ProductosController < ApplicationController
 
   # GET /productos/1/edit
   def edit
+    @producto = Producto.find(params[:id])
   end
 
   # POST /productos or /productos.json
@@ -59,15 +60,34 @@ class ProductosController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # PATCH /productos/1/eliminar_unidad
+  def eliminar_unidad
+    puts "Entrando en eliminar_unidad"
+    puts "Cantidad actual: #{@producto.cantidad}"
+    if @producto.cantidad > 0
+      @producto.decrement!(:cantidad)
+      flash[:notice] = 'Se eliminó una unidad del producto.'
+    else
+      flash[:alert] = 'No se puede reducir más, la cantidad ya es 0.'
+    end
+
+    if @producto.low_stock?
+      flash[:alert] = "Stock bajo: #{@producto.nombre} tiene #{@producto.cantidad} unidades."
+    end
+    
+    redirect_to @producto
+  end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_producto
-      @producto = Producto.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def producto_params
-      params.require(:producto).permit(:nombre, :descripcion, :cantidad, :precio, :low_stock_threshold, :sku)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_producto
+    @producto = Producto.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def producto_params
+    params.require(:producto).permit(:nombre, :descripcion, :cantidad, :precio, :low_stock_threshold, :sku)
+  end
 end

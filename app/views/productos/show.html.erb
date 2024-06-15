@@ -3,10 +3,15 @@
   <p style="color: green"><%= notice %></p>
 
   <%= render @producto %>
-
   <div>
-    <%= link_to "Editar  producto", edit_producto_path(@producto) %> |
-    <%= link_to "Volver a productos", productos_path %>
+    <%= button_to 'Eliminar Unidad', eliminar_unidad_producto_path(@producto), method: :patch, class: 'btn btn-danger button-separator' %>
 
     <%= button_to "Eliminar producto", @producto, method: :delete %>
+    
+    <%= link_to "Volver a productos", productos_path %>
+
+    <%= link_to "Editar producto", edit_producto_path(@producto), class: 'btn btn-primary' %>
+
+
+    
   </div>
