@@ -1,0 +1,20 @@
+<!-- app/views/user_sessions/new.html.erb -->
+
+<div class="login-container">
+  <div class="login-form">
+    <h2>Iniciar sesión</h2>
+    <%= form_with(url: login_path) do |form| %>
+      <div class="field">
+        <%= form.label :username, "Usuario" %>
+        <%= form.text_field :username, autofocus: true, class: 'form-control' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :password, "Contraseña" %>
+        <%= form.password_field :password, class: 'form-control' %>
+      </div>
+
+      <%= form.submit "Iniciar sesión", class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

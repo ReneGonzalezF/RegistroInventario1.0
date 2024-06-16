@@ -2,16 +2,23 @@
 <html>
   <head>
     <title>Inventario</title>
-    <%= stylesheet_link_tag 'application' %>
+    <%= stylesheet_link_tag 'application','login' %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <header>
+      <!-- Barra de navegación u otro contenido común -->
+     <% if user_signed_in? %>
+      <%= link_to "Cerrar sesión", logout_path, method: :delete, class: 'btn btn-danger', style: 'float: right; margin: 10px;' %>
+     <% else %>
+      <%= link_to "Cerrar sesión", login_path, class: 'btn btn-primary', style: 'float: right; margin: 10px;' %>
+     <% end %>
+   </header>
     <div class="flash-messages">
       <% flash.each do |key, message| %>
         <div class="flash <%= key %>"><%= message %></div>
